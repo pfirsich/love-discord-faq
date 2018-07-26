@@ -20,11 +20,11 @@ Keep in mind that you have to adjust `player.velocity.x`! If your framerate whil
 The problem we are trying to solve here is the numerical integration of an ordinary differential equation. Our multiplication by `dt` is not the only solution here! The solution I showed above, if extended for velocity/position integration in this way (most common):
 
 ```lua
-player.velocity.x = player.velocity.x + player.speed.x * dt
+player.velocity.x = player.velocity.x + player.acceleration.x * dt
 player.position.x = player.position.x + player.velocity.x * dt
 ```
 
-is called the [Semi-Implicit Euler Method](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method) or Euler-Cromer algorithm. It is a symplectic method, which  means that this integrator preserves phase space volume, which improves energy conservation and therefore the stability of the integration. It is not a very accurate method though, since it is of first order only - i.e. linear. Please note that this method as outline above is very easy to turn into a Explicit Euler (by accident), which is not symplectic or stable!
+is called the [Semi-Implicit Euler Method](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method) or Euler-Cromer algorithm. It is a "symplectic" method, which means that this method is better at conserving the energy of the system - this improves the stability of the integration. It's easy to see that when a simulation "blows up" and bodies fly away they gain energy out of nothing, so that energy conservation will help us maintain stability. Stability in this context means that in general the integrator will not "run away" with the small perturbations away from the correct solution, that the numerical solution inevitably introduces. In fact a numerical integration can never be exact in a finite number of steps. One important downside of the Semi-Implicit Euler Method is that it is only of first order, i.e. linear in `dt` which makes it a rather crude approximation. Please also note that this method as outline above is very easy to turn into a Explicit Euler (by accident), which is not symplectic or particularly stable!
 
 Depending on the use-case other integration operators are desired, like for example [Verlet Integration](https://en.wikipedia.org/wiki/Verlet_integration), [Leap-frog Integration](https://en.wikipedia.org/wiki/Leapfrog_integration) or [Runge-Kutta methods](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods).
 
