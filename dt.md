@@ -7,15 +7,16 @@ player.position.x = player.position.x + player.velocity.x
 ```
 Assuming your game runs at a comfortable `60 fps` on your development machine, this line is executed 60 times per second, i.e. every `~16.67 ms`. Now when I try it out on my computer, your game may run at for example `120 fps`. That line is then executed 120 times per second - twice as often! And the player in turn moves twice as fast.
 
-To fix this undesirable behaviour, we can use the variable `dt`, that is passed to [`love.update`](https://love2d.org/wiki/love.update) and contains the amount of time that has passed since `love.update` was last called (i.e. about the time that it took to process the last frame):
+### Solution
+To fix this undesirable behaviour, we can use the variable `dt`, that is passed to [`love.update`](https://love2d.org/wiki/love.update) and contains the amount of time that has passed since `love.update` was last called (i.e. about the time that it took to process the last frame) to replace our velocity that has the unit `pixels / frame` into a new velocity with the unit `pixels / second`:
 ```lua
 player.position.x = player.position.x + player.velocity.x * dt
 ```
-This way if my framerate is twice as high as yours, `dt` will be half of what it is for you and I need to execute the same line twice to move the same amount (since each time it is only moved half as much)!
+This way if my framerate is twice as high as yours, `dt` will be half of what it is for you and I need to execute the same line twice to move the same amount (since each time it is only moved half as much)! Now the velocity has the unit `pixels per second` instead of `pixels per frame` which it had before. This is exactly what we want because the duration of a frame varies over time and across machines, but seconds mostly have the same duration.
 
-Keep in mind that you have to adjust `player.velocity.x`! If your framerate while deciding on the value of that constant was e.g. `60 fps` (a frame time of `dt = 1s/60 = ~16.67 ms` you need to multiply your constant with `60` to get the new constant (so at `60 fps` those factors will cancel out to `1`).
+Keep in mind that because of this you have to adjust the value of `player.velocity.x`, since it has a different unit! If your framerate while deciding on the value of that constant was e.g. `60 fps` (a frame time of `dt = 1s/60 = ~16.67 ms` you need to multiply your constant with `60` to get the new constant (so at `60 fps` those factors will cancel out to `1`).
 
-## Details
+## Details (optional!)
 ### The Mathematical Problem
 The problem we are trying to solve here is the numerical integration of an ordinary differential equation. Our multiplication by `dt` is not the only solution here! The solution I showed above, if extended for velocity/position integration in this way (most common):
 
