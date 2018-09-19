@@ -46,3 +46,15 @@ If you wish to fix this in regards to framerate independence, you need to correc
 value = value * math.exp(ln(factor) * dt/origDt)
 ```
 With `oridDt` being the `dt` you chose `factor` with.
+
+If you want to multiply your `value` by `factor` every second, just do:
+```lua
+value = value * math.exp(ln(factor) * dt)
+```
+This makes it relatively clear how it works. If you repeat this instruction multiple times, you get:
+```lua
+value = value * math.exp(ln(factor) * dt1) * math.exp(ln(factor) * dt2) * math.exp(ln(factor) * dt3) * ...
+      = value * math.exp(ln(factor) * (dt1 + dt2 + dt3 + ...)
+      = value * factor^(dt1 + dt2 + dt3 + ...)
+```
+So if the sum of the `dt`s is 1, `value` will have been multiplied by `factor`. If the sum is 2, the `value` will have been multiplied by `factor^2` and so on, which is exactly what we are looking for.
