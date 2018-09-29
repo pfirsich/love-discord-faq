@@ -1,7 +1,7 @@
 # Short Circuiting of Boolean Operators
 In Lua the `and` and `or` operator do not return boolean values exclusively. They return one of their operands depending on whether one of them evaluates to `true`:
-* `x and y` evaluates to `y` if `x` evaluates to `true` and to `x` if it evaluates to `false`
-* `x or y` evaluates to `x` if `x` evaluates to `true` and to `y` if it evaluates to `false`
+* `x and y` evaluates to `y` if `x` evaluates to `true` and to `x` otherwise
+* `x or y` evaluates to `x` if `x` evaluates to `true` and to `y` otherwise
 
 *Reminder: In Lua only `false` and `nil` evaluate to `false`.*
 
