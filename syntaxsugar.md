@@ -1,5 +1,5 @@
 # Syntactic Sugar in Lua
-Syntax Sugar, in short, is a way to write something that might be more simpler to understand, or at least in an alternate way to how the language would express it by default. Lua has quite a few instances of this, which will be demonstrated below.
+Syntax Sugar, in short, is a way to write something in either a shorter way, or in a way that might be more simpler to understand to some, or at least in an alternate way to how the language would express it by default. Lua has quite a few instances of this, which will be demonstrated below.
 
 ## Tables
 Tables are the only complex data type in lua; they can store multiple things inside them, including more tables. Tables store *values* referenced by _keys_; values can be anything, keys can be anything except `nil`.
@@ -8,9 +8,10 @@ Tables are the only complex data type in lua; they can store multiple things ins
 The basic way of indexing a table is to use the **`[]` square bracket notation**, however, for specific *string* keys, lua provides syntax sugar in the form of the **`.` dot notation**; these keys are the ones *not starting with a number*, and *are not lua keywords* (e.g. `and`, `or`, `if`, etc.).
 ```lua
 tbl = {}
-tbl['anything'] = 'arbitrary string key'
-tbl['or']       = 'arbitrary string key that happens to be a lua keyword'
-tbl.something   = 'specific string key, as mentioned above'
+tbl['1arbitrary'] = 'arbitrary string key, starts with a number because it can'
+tbl['or']         = 'string key that happens to be a lua keyword'
+tbl.specific      = 'specific string key, as mentioned above'
+-- tbl['specific'] is also a valid way to write the above.
 ```
 
 Tables can be nested as well.
@@ -20,10 +21,10 @@ tbl1['tbl2'] = {}
 tbl1.tbl2.tbl3 = {}
 ```
 
-### Table constructor
+### Table literals & constructor-like behavior
 Tables can have their fields defined inside the **`{}` curly brackets**, with the caveat that one can't reference other fields from within, since they will be created simultaneously. Two forms can be used this way, and can be mixed together as well:
 * `key = value` defining specific keys inside the table, in the ways written above, and
-* `value` leaving out the key, thereby making lua use whole number keys starting from 1.
+* `value` leaving out the key, thereby making lua use whole number (integer) keys starting from 1.
 
 Both of these forms need to be separated by `,` commas, and the last one can have a trailing one without it causing errors.
 ```lua
@@ -33,7 +34,7 @@ tbl1 = {
 	tbl2         = {},   -- the key is equivalent to ['tbl2']
 	['tbl3']     = {},
 	['anything'] = 'arbitrary string key',
-	['or']       = 'arbitrary string key that happens to be a lua keyword',
+	['or']       = 'string key that happens to be a lua keyword',
 	'second',    -- [2] is the key here, due to [1] already being defined above.
 	something    = 'specific string key, as mentioned above', -- this comma at the end is fine.
 }
@@ -52,6 +53,7 @@ Furthermore, functions can also be stored in tables as well, no matter how deepl
 * `tbl1['tbl2']['fun'] = function(params) --[[code--]] end`
 * `tbl1.tbl2.fun = function(params) --[[code--]] end`
 * `function tbl1.tbl2.fun(params) --[[code--]] end`
+The last example here only works with **`.` dot notation**.
 
 ### Calling
 There is one call mechanism in lua, by using **`()` parentheses** on a variable.
