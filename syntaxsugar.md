@@ -86,3 +86,9 @@ Which is again equivalent to the following:
 * `tbl1['tbl2']['fun'](tbl1['tbl2'], params)`
 
 *Note that in both cases of function definitions and calls, the language doesn't check where the `:`colon notation was used, and one can (but probably shouldn't) mix and match the two notations between definitions and calls.*
+
+Here are some libraries that allows the usage of the **`:` colon notation** as OOP-like syntax in lua:
+* https://github.com/rxi/classic/
+* https://github.com/kikito/middleclass
+* https://github.com/Yonaba/30log
+* https://hump.readthedocs.io/en/latest/class.html
