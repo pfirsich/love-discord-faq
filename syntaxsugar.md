@@ -1,5 +1,5 @@
 # Syntactic Sugar in Lua
-Syntax Sugar, in short, is a way to write something in either a shorter way, or in a way that might be more simpler to understand to some, or at least in an alternate way to how the language would express it by default. Lua has quite a few instances of this, which will be demonstrated below.
+Syntax Sugar is a way to write something in a simpler or shorter way, often to abbreviate very common operations. Lua has quite a few instances of this, which will be demonstrated below.
 
 ## Tables
 Tables are the only complex data type in lua; they can store multiple things inside them, including more tables. Tables store *values* referenced by _keys_; values can be anything, keys can be anything except `nil`.
